@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./web
+    ports:
+      - "8080:80"
+    depends_on:
+      - yolo-service
+      - chat-service
+    restart: always
+    networks:
+      - internal
+
+  yolo-service:
+    build: ./ai
+    # Note: NO 'ports' mapping here! Hidden inside Docker network.
+    # Nginx can reach it via http://yolo-service:8000
+    restart: always
+    networks:
+      - internal
+
+  chat-service:
+    build: ./chat
+    restart: always
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - DISCORD_WEBHOOK=${DISCORD_WEBHOOK}
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge

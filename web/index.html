@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERPENT.AI — Snake Classification System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+</head>
+<body>
+<div class="page-wrapper">
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <!-- SERPENT.AI Logo — ROG × NVIDIA style -->
+            <svg class="logo-svg" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg" width="52" height="52">
+                <defs>
+                    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#76ff03"/>
+                        <stop offset="55%" stop-color="#22c55e"/>
+                        <stop offset="100%" stop-color="#00e5ff" stop-opacity="0.7"/>
+                    </linearGradient>
+                    <linearGradient id="logoGradDim" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#76ff03" stop-opacity="0.15"/>
+                        <stop offset="100%" stop-color="#22c55e" stop-opacity="0.05"/>
+                    </linearGradient>
+                    <filter id="logoGlow">
+                        <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                </defs>
+
+                <!-- Outer angular hexagon frame -->
+                <polygon points="26,2 48,13 48,39 26,50 4,39 4,13"
+                    fill="none" stroke="url(#logoGrad)" stroke-width="1.2" opacity="0.5"/>
+
+                <!-- Inner sharp diamond -->
+                <polygon points="26,8 44,18 44,34 26,44 8,34 8,18"
+                    fill="url(#logoGradDim)" stroke="url(#logoGrad)" stroke-width="0.8" opacity="0.7"/>
+
+                <!-- Bold S glyph — angular/geometric, ROG style -->
+                <!-- Top bar -->
+                <polygon points="16,15 32,15 35,18 32,18 19,18" fill="url(#logoGrad)" filter="url(#logoGlow)"/>
+                <!-- Top-right descender -->
+                <polygon points="32,18 35,18 35,24 32,27 32,24" fill="url(#logoGrad)"/>
+                <!-- Mid bar with slash cut -->
+                <polygon points="16,24 32,24 32,27 19,27" fill="url(#logoGrad)" filter="url(#logoGlow)"/>
+                <!-- Bottom-left descender -->
+                <polygon points="16,27 19,27 19,33 16,30" fill="url(#logoGrad)"/>
+                <!-- Bottom bar -->
+                <polygon points="19,33 35,33 35,37 16,37 16,34" fill="url(#logoGrad)" filter="url(#logoGlow)"/>
+
+                <!-- Corner accent cuts — ROG signature -->
+                <polyline points="4,13 10,8" stroke="#76ff03" stroke-width="1" opacity="0.6"/>
+                <polyline points="48,13 42,8" stroke="#76ff03" stroke-width="1" opacity="0.6"/>
+                <polyline points="4,39 10,44" stroke="#22c55e" stroke-width="1" opacity="0.4"/>
+                <polyline points="48,39 42,44" stroke="#22c55e" stroke-width="1" opacity="0.4"/>
+
+                <!-- NVIDIA-style scan line accent -->
+                <line x1="4" y1="26" x2="10" y2="26" stroke="#76ff03" stroke-width="1.5" opacity="0.8"/>
+                <line x1="42" y1="26" x2="48" y2="26" stroke="#76ff03" stroke-width="1.5" opacity="0.8"/>
+            </svg>
+
+            <div class="logo-wordmark">
+                <div class="logo-text">SERPENT<span class="logo-dot">.</span>AI</div>
+                <div class="logo-sub"><span data-i18n="logo_sub">Snake Classification System</span></div>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showPage('scan')" id="tab-scan">
+                <i class="ph ph-magnifying-glass" style="font-size:14px"></i> <span data-i18n="nav_scan">วิเคราะห์</span>
+            </button>
+            <button class="nav-tab" onclick="showPage('history')" id="tab-history">
+                <i class="ph ph-clock-counter-clockwise" style="font-size:14px"></i> <span data-i18n="nav_history">ประวัติ</span>
+                <span class="tab-badge" id="historyBadge" style="display:none">0</span>
+            </button>
+            <button class="nav-tab" onclick="showPage('encyclopedia')" id="tab-encyclopedia">
+                <i class="ph ph-books" style="font-size:14px"></i> <span data-i18n="nav_enc">สารานุกรม</span>
+            </button>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px">
+            <div class="lang-toggle" id="langToggle">
+                <button class="lang-btn active" id="btn-th" onclick="setLang('th')">TH</button>
+                <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+            </div>
+            <div class="header-badge">Claude AI · 23 Species · TH/EN</div>
+        </div>
+    </header>
+
+    <!-- ─── PAGE: SCAN ─── -->
+    <div id="page-scan" class="page active">
+        <div class="upload-section" id="uploadSection">
+            <div class="upload-title" data-i18n="upload_title">IDENTIFY<br><span>ANY SNAKE</span></div>
+            <div class="upload-subtitle" data-i18n="upload_subtitle">อัปโหลดภาพงู — AI จะวิเคราะห์สายพันธุ์และระดับอันตรายทันที</div>
+
+            <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageInput').click()">
+                <span class="upload-icon"><i class="ph ph-image" style="font-size:52px;color:var(--text-dim)"></i></span>
+                <div class="upload-text-main" data-i18n="upload_main">วางรูปภาพที่นี่ หรือคลิกเพื่อเลือกไฟล์</div>
+                <div class="upload-text-sub" data-i18n="upload_sub">รองรับ JPG, PNG, WEBP — ความละเอียดสูงให้ผลแม่นยำกว่า</div>
+                <img id="previewThumb" src="" alt="preview">
+            </div>
+
+            <input type="file" id="imageInput" accept="image/*">
+            <div class="upload-actions">
+                <button class="btn-analyze" id="analyzeBtn" onclick="analyze()" disabled>
+                    <i class="ph ph-magnifying-glass" style="font-size:18px"></i> <span data-i18n="btn_analyze">วิเคราะห์รูปภาพ</span>
+                </button>
+                <button class="btn-camera" onclick="openCamera()">
+                    <i class="ph ph-camera" style="font-size:18px"></i> <span data-i18n="btn_camera">ถ่ายจากกล้อง</span>
+                </button>
+            </div>
+
+            <div class="loading-overlay" id="loading">
+                <div class="dna-loader"></div>
+                <div class="loading-text">SCANNING · CLASSIFYING · ANALYZING</div>
+            </div>
+        </div>
+
+        <div id="resultSection">
+            <div class="result-header">
+                <div>
+                    <div class="result-count" id="resultCount">0</div>
+                    <div class="result-count-label">Species Detected</div>
+                </div>
+                <div class="result-scan-info" id="scanInfo"></div>
+                <button class="btn-reset" onclick="resetPage()"><i class="ph ph-arrow-counter-clockwise" style="font-size:13px"></i> <span data-i18n="btn_reset">วิเคราะห์ใหม่</span></button>
+            </div>
+            <div id="cardsContainer"></div>
+        </div>
+    </div>
+
+    <!-- ─── PAGE: HISTORY ─── -->
+    <div id="page-history" class="page">
+        <div class="history-page">
+            <div class="page-title" data-i18n="history_title">SCAN <span>HISTORY</span></div>
+            <div class="page-subtitle" data-i18n="history_sub">ประวัติการสแกนในเซสชันนี้ · Session storage only</div>
+            <div id="historyContent">
+                <div class="history-empty">
+                    <div class="history-empty-icon"><i class="ph ph-clock" style="font-size:48px;color:var(--text-dim)"></i></div>
+                    <div class="history-empty-text"><span data-i18n="hist_empty">ยังไม่มีประวัติการสแกน<br>ไปวิเคราะห์รูปภาพก่อนเลย!</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── PAGE: ENCYCLOPEDIA ─── -->
+    <div id="page-encyclopedia" class="page">
+        <div class="encyclopedia-page">
+            <div class="page-title" data-i18n="enc_title">SNAKE <span>ENCYCLOPEDIA</span></div>
+            <div class="page-subtitle" data-i18n="enc_sub">ฐานข้อมูลงูไทย 23 สายพันธุ์ · คลิกเพื่อดูรายละเอียด</div>
+
+            <div class="enc-controls">
+                <input class="enc-search" id="encSearch" data-i18n-placeholder="enc_search_ph" placeholder="🔍  ค้นหาชื่อ ชนิด หรือแหล่งอาศัย..." oninput="filterEnc()">
+                <div class="enc-filter-group">
+                    <button class="enc-filter-btn active all" onclick="setEncFilter('all')" id="enc-all"><span data-i18n="enc_all">ทั้งหมด</span></button>
+                    <button class="enc-filter-btn venomous" onclick="setEncFilter('venomous')" id="enc-venomous"><i class="ph ph-skull" style="font-size:12px"></i> <span data-i18n="enc_venomous">มีพิษ</span></button>
+                    <button class="enc-filter-btn safe" onclick="setEncFilter('safe')" id="enc-safe"><i class="ph ph-shield-check" style="font-size:12px"></i> <span data-i18n="enc_safe">ไม่มีพิษ</span></button>
+                </div>
+                <div class="enc-count" id="encCount">23 species</div>
+            </div>
+
+            <div class="enc-grid" id="encGrid"></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ─── CAMERA MODAL ─── -->
+<div class="camera-modal-overlay" id="cameraModal">
+    <div class="camera-box">
+        <div class="camera-header">
+            <div>
+                <div class="camera-title"><i class="ph ph-camera" style="vertical-align:-3px"></i> <span data-i18n="cam_title">LIVE CAMERA SCAN</span></div>
+                <div style="font-size:12px;color:var(--text-muted)"><span data-i18n="cam_sub">ส่องกล้องไปที่งู แล้วกดถ่ายภาพ</span></div>
+            </div>
+            <button class="camera-close" onclick="closeCamera()">✕</button>
+        </div>
+        <div class="camera-video-wrap" id="cameraVideoWrap">
+            <video id="cameraVideo" autoplay playsinline muted></video>
+            <div class="camera-scan-line"></div>
+            <div class="camera-corner tl"></div>
+            <div class="camera-corner tr"></div>
+            <div class="camera-corner bl"></div>
+            <div class="camera-corner br"></div>
+        </div>
+        <canvas id="cameraSnap" style="display:none"></canvas>
+        <div class="camera-status" id="cameraStatus"><span data-i18n="cam_status">กำลังเปิดกล้อง...</span></div>
+        <div class="camera-actions">
+            <button class="btn-capture" id="captureBtn" onclick="captureFrame()" disabled>
+                <i class="ph ph-aperture" style="font-size:16px"></i> <span data-i18n="btn_capture">ถ่ายภาพ</span>
+            </button>
+            <button class="btn-cam-outline" onclick="switchCamera()"><i class="ph ph-arrows-clockwise" style="font-size:14px"></i> <span data-i18n="btn_switch">สลับกล้อง</span></button>
+            <button class="btn-cam-outline" onclick="closeCamera()"><i class="ph ph-x" style="font-size:14px"></i> <span data-i18n="btn_cancel">ยกเลิก</span></button>
+        </div>
+    </div>
+</div>
+
+<!-- ─── MAP MODAL ─── -->
+<div class="map-modal-overlay" id="mapModal" onclick="closeMap(event)">
+    <div class="map-box">
+        <div class="map-header">
+            <div class="map-title-block">
+                <div class="map-snake-name" id="mapSnakeName">—</div>
+                <div class="map-snake-th" id="mapSnakeTh">—</div>
+            </div>
+            <button class="map-close" onclick="closeMap()">✕</button>
+        </div>
+        <div class="map-svg-wrap">
+            <div class="map-legend">
+                <div class="map-legend-item"><div class="map-legend-dot" style="background:#22c55e"></div>พบมาก</div>
+                <div class="map-legend-item"><div class="map-legend-dot" style="background:#f59e0b"></div>พบบ้าง</div>
+                <div class="map-legend-item"><div class="map-legend-dot" style="background:#1a2e1e"></div>ไม่พบ</div>
+            </div>
+            <svg id="mapSvg" viewBox="0 0 340 540" xmlns="http://www.w3.org/2000/svg">
+                <!-- Simplified Thailand map SVG paths by region -->
+                <!-- North -->
+                <path id="reg-north" class="region-path" d="M120,30 L200,25 L230,40 L240,80 L220,100 L190,110 L160,105 L130,95 L110,75 Z" />
+                <!-- Northeast (Isaan) -->
+                <path id="reg-northeast" class="region-path" d="M200,25 L270,35 L300,60 L295,120 L270,150 L240,160 L220,140 L220,100 L240,80 Z" />
+                <!-- Central -->
+                <path id="reg-central" class="region-path" d="M110,75 L130,95 L160,105 L190,110 L220,140 L210,180 L175,200 L150,195 L125,185 L105,165 L100,130 Z" />
+                <!-- East -->
+                <path id="reg-east" class="region-path" d="M220,140 L240,160 L270,150 L280,180 L250,210 L220,200 L210,180 Z" />
+                <!-- West -->
+                <path id="reg-west" class="region-path" d="M80,130 L100,130 L105,165 L95,200 L75,220 L60,200 L65,165 Z" />
+                <!-- South (upper) -->
+                <path id="reg-south-upper" class="region-path" d="M105,165 L125,185 L150,195 L175,200 L170,240 L150,260 L125,265 L100,250 L90,220 L95,200 Z" />
+                <!-- South (lower) -->
+                <path id="reg-south-lower" class="region-path" d="M100,250 L125,265 L150,260 L155,300 L145,340 L130,380 L115,410 L100,420 L88,400 L85,360 L88,320 L92,280 Z" />
+                <!-- Deep South -->
+                <path id="reg-deep-south" class="region-path" d="M88,400 L100,420 L115,410 L120,450 L115,490 L105,510 L92,505 L80,480 L78,450 L82,420 Z" />
+
+                <!-- Region labels -->
+                <text x="175" y="68" text-anchor="middle" fill="#6b8570" font-size="10" font-family="DM Sans">เหนือ</text>
+                <text x="260" y="95" text-anchor="middle" fill="#6b8570" font-size="10" font-family="DM Sans">อีสาน</text>
+                <text x="162" y="158" text-anchor="middle" fill="#6b8570" font-size="10" font-family="DM Sans">กลาง</text>
+                <text x="248" y="178" text-anchor="middle" fill="#6b8570" font-size="9" font-family="DM Sans">ตะวันออก</text>
+                <text x="68" y="178" text-anchor="middle" fill="#6b8570" font-size="9" font-family="DM Sans">ตะวันตก</text>
+                <text x="135" y="228" text-anchor="middle" fill="#6b8570" font-size="10" font-family="DM Sans">ใต้บน</text>
+                <text x="118" y="340" text-anchor="middle" fill="#6b8570" font-size="10" font-family="DM Sans">ใต้ล่าง</text>
+                <text x="98" y="455" text-anchor="middle" fill="#6b8570" font-size="9" font-family="DM Sans">ใต้สุด</text>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<!-- ─── SHARE CARD OVERLAY ─── -->
+<div class="share-overlay" id="shareOverlay" onclick="if(event.target===this)closeShare()">
+    <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text-muted);letter-spacing:2px;margin-bottom:4px"><span data-i18n="share_preview">SHARE CARD PREVIEW</span></div>
+    <canvas id="shareCanvas"></canvas>
+    <div class="share-actions">
+        <button class="btn-share-download" onclick="downloadShareCard()">⬇ บันทึกรูปภาพ</button>
+        <button class="btn-share-close" onclick="closeShare()">ปิด</button>
+    </div>
+</div>
+<div class="modal-overlay" id="encModal" onclick="closeModal(event)">
+    <div class="modal-box" id="encModalBox">
+        <div class="modal-header" id="encModalHeader"></div>
+        <div class="modal-body" id="encModalBody"></div>
+    </div>
+</div>
+
+<!-- ─── CLAUDE AI CHAT ─── -->
+<div class="chat-popup" id="chatPopup">
+    <div class="chat-header" onclick="toggleChat()">
+        <div class="chat-header-icon"><i class="ph ph-chat-circle" style="font-size:18px;color:#fff"></i></div>
+        <div class="chat-header-info">
+            <div class="chat-header-title"><span data-i18n="chat_title">ผู้เชี่ยวชาญด้านงู AI</span></div>
+            <div class="chat-powered"><span data-i18n="chat_ready">Claude · พร้อมช่วยเหลือ</span></div>
+        </div>
+        <button class="chat-toggle" id="chatToggle">▼</button>
+    </div>
+
+    <div class="quick-questions" id="quickQuestions">
+        <button class="quick-btn" onclick="quickAsk(i18n('q1_ask'))"><i class="ph ph-skull" style="font-size:11px"></i> <span data-i18n="q1">งูอันตรายที่สุด</span></button>
+        <button class="quick-btn" onclick="quickAsk(i18n('q2_ask'))"><i class="ph ph-siren" style="font-size:11px"></i> <span data-i18n="q2">ถูกงูกัด</span></button>
+        <button class="quick-btn" onclick="quickAsk(i18n('q3_ask'))"><i class="ph ph-eye" style="font-size:11px"></i> <span data-i18n="q3">แยกพิษ/ไม่มี</span></button>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+        <div class="chat-msg bot">
+            <div class="chat-avatar"><i class="ph ph-robot" style="color:#22c55e"></i></div>
+            <div class="chat-bubble">สวัสดีครับ! ผมคือผู้เชี่ยวชาญด้านงูในประเทศไทย ถามได้เลยเรื่องชนิดงู พิษ การปฐมพยาบาล หรืออะไรก็ได้ 🙏</div>
+        </div>
+    </div>
+
+    <div class="chat-input-area">
+        <input class="chat-input" id="chatInput" data-i18n-placeholder="chat_ph" placeholder="ถามเกี่ยวกับงู..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}">
+        <button class="chat-send" id="chatSend" onclick="sendChat()"><i class="ph ph-paper-plane-tilt" style="font-size:16px"></i></button>
+    </div>
+</div>
+
+
+<script src="App.js"></script>
+<script>
+    // Init Lucide icons — re-run after any dynamic render
+</script>
+</body>
+</html>
