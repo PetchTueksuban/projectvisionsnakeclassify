@@ -100,10 +100,10 @@
 
 ### 1. Clone
 ```bash
-git clone https://github.com/YOUR_USERNAME/projectvision.git
+git clone https://github.com/PetchTueksuban/projectvisionsnakeclassify
 cd projectvision
 ```
-
+### if you prefer to use only snake ai with out ai chat bot can skip set up.env
 ### 2. Setup environment
 ```bash
 cp .env.example .env
@@ -111,63 +111,17 @@ cp .env.example .env
 Edit `.env` and fill in your keys:
 ```
 GEMINI_API_KEY=your_key_here
-DISCORD_WEBHOOK=your_webhook_here  # optional
+DISCORD_WEBHOOK=your_webhook_here 
 ```
 
-### 3. Add YOLO model
-Place your trained model file at:
-```
-ai/best.pt
-```
-
-### 4. Run
+### 3. Run
 ```bash
 docker-compose up --build
 ```
 
-### 5. Open browser
+### 4. Open browser
 ```
 http://localhost:8080
-```
-
----
-
-## API Reference
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/` | GET | Frontend UI |
-| `/api/predict` | POST | YOLO snake detection |
-| `/chat` | POST | Gemini AI chatbot |
-
-### POST `/api/predict`
-```bash
-curl -X POST http://localhost:8080/api/predict \
-  -F "file=@snake.jpg"
-```
-```json
-{
-  "predictions": [
-    {
-      "box": [x1, y1, x2, y2],
-      "label": "Monocled_cobra",
-      "confidence": 0.95,
-      "is_venomous": true
-    }
-  ]
-}
-```
-
-### POST `/chat`
-```bash
-curl -X POST http://localhost:8080/chat \
-  -H "Content-Type: application/json" \
-  -d '{"message": "งูเห่าอันตรายแค่ไหน?"}'
-```
-```json
-{
-  "reply": "งูเห่า (Monocled Cobra) เป็นงูพิษร้ายแรง..."
-}
 ```
 
 ---
