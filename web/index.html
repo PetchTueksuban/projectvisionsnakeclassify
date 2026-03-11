@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SERPENT.AI — Snake Classification System</title>
+    <title>JABNGU.AI — Snake Classification System</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Style.css">
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
@@ -65,7 +65,7 @@
             </svg>
 
             <div class="logo-wordmark">
-                <div class="logo-text">SERPENT<span class="logo-dot">.</span>AI</div>
+                <div class="logo-text">JABNGU<span class="logo-dot">.</span>AI</div>
                 <div class="logo-sub"><span data-i18n="logo_sub">Snake Classification System</span></div>
             </div>
         </div>
@@ -88,7 +88,7 @@
                 <button class="lang-btn active" id="btn-th" onclick="setLang('th')">TH</button>
                 <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
             </div>
-            <div class="header-badge">Claude AI · 23 Species · TH/EN</div>
+            <div class="header-badge">23 Species · TH/EN</div>
         </div>
     </header>
 
@@ -265,15 +265,19 @@
     </div>
 </div>
 
-<!-- ─── CLAUDE AI CHAT ─── -->
+<!-- ─── AI CHAT ─── -->
 <div class="chat-popup" id="chatPopup">
-    <div class="chat-header" onclick="toggleChat()">
-        <div class="chat-header-icon"><i class="ph ph-chat-circle" style="font-size:18px;color:#fff"></i></div>
-        <div class="chat-header-info">
-            <div class="chat-header-title"><span data-i18n="chat_title">ผู้เชี่ยวชาญด้านงู AI</span></div>
-            <div class="chat-powered"><span data-i18n="chat_ready">Claude · พร้อมช่วยเหลือ</span></div>
+    <div class="chat-unread-dot" id="chatUnreadDot"></div>
+    <div class="chat-header" id="chatHeader">
+        <div class="chat-header-icon" onclick="expandChat()"><i class="ph ph-chat-circle" style="font-size:18px;color:#fff"></i></div>
+        <div class="chat-header-info" onclick="toggleChat()" style="cursor:pointer">
+            <div class="chat-header-title"><span data-i18n="chat_title">เซียนงู AI</span></div>
+            <div class="chat-powered"><span data-i18n="chat_ready">JABNGU.AI · พร้อมช่วยเหลือ</span></div>
         </div>
-        <button class="chat-toggle" id="chatToggle">▼</button>
+        <div class="chat-header-actions">
+            <button class="chat-toggle" id="chatToggle" onclick="toggleChat()" title="ย่อ/ขยาย">▼</button>
+            <button class="chat-minimize" id="chatMinimizeBtn" onclick="minimizeChat()" title="ย่อเป็น icon">⊟</button>
+        </div>
     </div>
 
     <div class="quick-questions" id="quickQuestions">

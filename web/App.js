@@ -209,6 +209,12 @@ function showPage(name) {
     if (name === 'history') renderHistory();
 }
 
+// กด Back กลับหน้า upload
+window.addEventListener('popstate', () => {
+    document.getElementById('resultSection').style.display = 'none';
+    document.getElementById('uploadSection').style.display = 'block';
+});
+
 // ─── SCAN PAGE ────────────────────────────────────────────────────────────────
 const uploadArea = document.getElementById('uploadArea');
 const imageInput = document.getElementById('imageInput');
@@ -323,6 +329,8 @@ function renderResults(predictions, file) {
     document.getElementById('uploadSection').style.display = 'none';
     const resultSection = document.getElementById('resultSection');
     resultSection.style.display = 'block';
+    // Push history so Back button returns to upload screen
+    history.pushState({ view: 'result' }, '');
 
     const now = new Date();
     document.getElementById('resultCount').textContent = predictions.length;
@@ -614,8 +622,30 @@ let chatLoading = false;
 const chatMessages = [];
 
 function toggleChat() {
+    const popup = document.getElementById('chatPopup');
+    if (popup.classList.contains('minimized')) {
+        expandChat();
+        return;
+    }
     chatCollapsed = !chatCollapsed;
-    document.getElementById('chatPopup').classList.toggle('collapsed', chatCollapsed);
+    popup.classList.toggle('collapsed', chatCollapsed);
+    document.getElementById('chatToggle').style.transform = chatCollapsed ? 'rotate(180deg)' : '';
+}
+
+function minimizeChat() {
+    const popup = document.getElementById('chatPopup');
+    popup.classList.remove('collapsed');
+    popup.classList.add('minimized');
+    chatCollapsed = false;
+}
+
+function expandChat() {
+    const popup = document.getElementById('chatPopup');
+    if (popup.classList.contains('minimized')) {
+        popup.classList.remove('minimized');
+        // Hide unread dot when opening
+        document.getElementById('chatUnreadDot').style.display = 'none';
+    }
 }
 
 function quickAsk(q) {
@@ -635,6 +665,11 @@ function addChatMsg(text, isBot) {
     
     if (isBot) chatMessages.push({ role: 'assistant', content: text });
     else chatMessages.push({ role: 'user', content: text });
+
+    // Show unread dot if minimized and bot sends a message
+    if (isBot && document.getElementById('chatPopup').classList.contains('minimized')) {
+        document.getElementById('chatUnreadDot').style.display = 'flex';
+    }
 }
 
 function addTyping() {

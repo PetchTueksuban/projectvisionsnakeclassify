@@ -1,7 +1,7 @@
-
+# ใช้ภาพขนาดเล็กตามโจทย์
 FROM python:3.9-slim
 
-
+# อัปเดตชื่อแพ็กเกจเป็น libgl1 (สำหรับ Debian รุ่นใหม่)
 RUN apt-get update && apt-get install -y \
     libgl1 \
     libglib2.0-0 \
@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-
+# ก๊อปปี้และติดตั้ง dependencies (รวมถึง opencv-python-headless)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
