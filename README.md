@@ -60,7 +60,7 @@
 3. Nginx proxies → yolo-service:8000/predict
         │
         ▼
-4. YOLOv8 runs inference on image
+4. YOLOv11 runs inference on image
         │
         ▼
 5. Returns JSON: { label, box, confidence, is_venomous }
