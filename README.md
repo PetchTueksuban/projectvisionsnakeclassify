@@ -18,10 +18,10 @@
 │                        Port 80 (internal)                       │
 │                    Port 8080 (exposed)                          │
 │                                                                 │
-│   GET  /          → serve index.html, App.js, Style.css        │
-│   POST /api/*     → proxy → yolo-service:8000                  │
-│   POST /chat      → proxy → chat-service:3001                  │
-└──────────┬────────────────────────────┬────────────────────────┘
+│   GET  /          → serve index.html, App.js, Style.css         │
+│   POST /api/*     → proxy → yolo-service:8000                   │
+│   POST /chat      → proxy → chat-service:3001                   │
+└──────────┬────────────────────────────┬─────────────────────────┘
            │                            │
            ▼                            ▼
 ┌──────────────────────┐   ┌────────────────────────────────────┐
@@ -42,8 +42,8 @@
 └──────────────────────┘   └────────────────────────────────────┘
            │                            │
            └────────────────────────────┘
-                    Docker Network: internal
-                    (Bridge Network — isolated)
+             Docker Network: internal
+            (Bridge Network — isolated)
 ```
 
 ---
@@ -91,8 +91,10 @@
 ## Requirements
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
+
+**if you prefer to use only snake ai with out ai chat bot can skip this**
 - Gemini API Key → [Get here](https://aistudio.google.com/apikey)
-- `best.pt` — YOLOv8 trained model (23 snake species)
+- DISCORD WEBHOOK ID
 
 ---
 
