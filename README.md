@@ -1,4 +1,4 @@
-# 🐍 SERPENT.AI — Snake Classification System
+# JABNGU.AI — Snake Classification System
 
 > A containerized microservices architecture for real-time snake species detection using YOLOv8, built with Docker, Nginx, and FastAPI.
 
@@ -198,4 +198,21 @@ projectvision/
 | Chatbot | Gemini AI (Google) |
 | Chat Backend | Node.js + Express |
 | Containerization | Docker + Docker Compose |
-| Logging | Discord Webhook |
+| Logging | Discord Webhook |   
+
+---  
+
+<img width="1916" height="898" alt="image" src="https://github.com/user-attachments/assets/ce115802-1764-4101-a345-dc414a293920" />
+
+<img width="1897" height="890" alt="image" src="https://github.com/user-attachments/assets/c98d6538-e80b-4e05-a7f4-5ea49fcb2c96" />  
+
+<img width="1889" height="892" alt="image" src="https://github.com/user-attachments/assets/f0e363f8-f272-4eeb-9cbe-62147751d43b" />
+
+
+<img width="1912" height="900" alt="image" src="https://github.com/user-attachments/assets/0b0cbf6e-f2ed-4d25-a39d-8a0f59eb8632" />
+
+<img width="1885" height="898" alt="image" src="https://github.com/user-attachments/assets/16395b19-35d1-4625-bfb2-e48b1124c577" />
+
+
+
+
