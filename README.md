@@ -123,7 +123,7 @@ docker-compose up --build
 
 ### 4. Open browser
 ```
-http://localhost:8080
+http://localhost
 ```
 
 ---
