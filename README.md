@@ -213,6 +213,16 @@ projectvision/
 
 <img width="1885" height="898" alt="image" src="https://github.com/user-attachments/assets/16395b19-35d1-4625-bfb2-e48b1124c577" />
 
+---  
+
+**OUR TEAM MEMBER**
+* PETCH TUEKSUBAN  - backend  
+s6601023621081@email.kmutnb.ac.th  
+* POKIN ONPHAN     - Frontend UI  
+s6601023611060@email.kmutnb.ac.th  
+* Thitaree Siwapornchai -AI   
+s6601023620077@email.kmutnb.ac.th
+
 
 
 
