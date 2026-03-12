@@ -2,9 +2,14 @@ version: '3.8'
 
 services:
   web:
-    build: ./web
+    image: nginx:alpine
     ports:
-      - "8080:80"
+      - "80:80"
+    volumes:
+      - ./web/index.html:/usr/share/nginx/html/index.html
+      - ./web/App.js:/usr/share/nginx/html/App.js
+      - ./web/Style.css:/usr/share/nginx/html/Style.css
+      - ./web/nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - yolo-service
       - chat-service
