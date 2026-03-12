@@ -16,7 +16,7 @@
 ┌─────────────────────────────────────────────────────────────────┐
 │                   CONTAINER A: web (Nginx)                      │
 │                        Port 80 (internal)                       │
-│                    Port 8080 (exposed)                          │
+│                    Port 8000 (exposed)                          │
 │                                                                 │
 │   GET  /          → serve index.html, App.js, Style.css         │
 │   POST /api/*     → proxy → yolo-service:8000                   │
