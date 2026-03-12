@@ -172,7 +172,7 @@ function setLang(lang) {
     }
 }
 
-// ─── SNAKE DATABASE ───────────────────────────────────────────────────────────
+// SNAKE DATABASE
 const SNAKE_DB = {
     "Banded_krait": { th:"งูทับสมิงคลา", family:"Elapidae", size:"1.5–2.1 ม.", habitat:"ป่า, ทุ่งนา, ริมน้ำ", region:"ทั่วไทย", venomous:true, venom_type:"Neurotoxin", danger_level:"อันตรายมาก ☠️", description:"งูทับสมิงคลามีลายปล้องขาว-ดำสลับกัน ชอบออกหากินกลางคืน พิษเป็นสารพิษต่อระบบประสาทรุนแรง หากถูกกัดอาการอาจไม่แสดงทันทีแต่เป็นอันตรายถึงชีวิต", first_aid:["อย่าตื่นตกใจ นอนนิ่งๆ ลดการเคลื่อนไหว","ตรึงอวัยวะที่ถูกกัดให้อยู่ระดับต่ำกว่าหัวใจ","รีบไปโรงพยาบาลทันที ต้องการ Polyvalent Antivenom","ห้ามดูดพิษ กรีดแผล หรือใช้สมุนไพร"] },
     "Burmese_python": { th:"งูหลามพม่า", family:"Pythonidae", size:"3–5+ ม.", habitat:"ป่าดิบ, พื้นที่ชุ่มน้ำ", region:"ภาคเหนือ-ตะวันตก", venomous:false, venom_type:"-", danger_level:"ไม่มีพิษ (บีบรัด)", description:"งูหลามพม่าเป็นงูขนาดใหญ่ที่สุดชนิดหนึ่งในเอเชีย ไม่มีพิษแต่ใช้วิธีบีบรัดเหยื่อ งูที่มีขนาดใหญ่อาจเป็นอันตรายต่อมนุษย์ได้หากเข้าใกล้", first_aid:["ถอยออกห่างช้าๆ อย่าวิ่ง","หากถูกกัดให้ล้างแผลด้วยน้ำสะอาด","หากงูพันรอบร่างกายต้องให้ผู้อื่นช่วยถอด","ไปพบแพทย์เพื่อทำความสะอาดแผลและป้องกันการติดเชื้อ"] },
@@ -199,7 +199,7 @@ const SNAKE_DB = {
     "Yellow_spotted_keelback": { th:"งูลายสอจุดเหลือง", family:"Natricidae", size:"0.6–1.0 ม.", habitat:"ใกล้น้ำ, ทุ่งนา", region:"ทั่วไทย", venomous:false, venom_type:"-", danger_level:"ไม่มีพิษ 🟢", description:"งูลายสอที่มีจุดสีเหลืองสวยงาม อาศัยใกล้แหล่งน้ำ หากินกบและปลา ไม่มีพิษอันตราย เป็นงูที่มีประโยชน์ต่อระบบนิเวศ", first_aid:["ไม่มีพิษ ปลอดภัย","ล้างแผลหากถูกกัด","ไม่จำเป็นต้องรักษาพิเศษ"] }
 };
 
-// ─── PAGE NAVIGATION ──────────────────────────────────────────────────────────
+// PAGE NAVIGATION
 function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -209,13 +209,13 @@ function showPage(name) {
     if (name === 'history') renderHistory();
 }
 
-// กด Back กลับหน้า upload
+// return to first page
 window.addEventListener('popstate', () => {
     document.getElementById('resultSection').style.display = 'none';
     document.getElementById('uploadSection').style.display = 'block';
 });
 
-// ─── SCAN PAGE ────────────────────────────────────────────────────────────────
+//SCAN PAGE
 const uploadArea = document.getElementById('uploadArea');
 const imageInput = document.getElementById('imageInput');
 const analyzeBtn = document.getElementById('analyzeBtn');
@@ -616,7 +616,7 @@ function closeModal(e) {
     }
 }
 
-// ─── CLAUDE AI CHAT ───────────────────────────────────────────────────────────
+//AI CHAT
 let chatCollapsed = false;
 let chatLoading = false;
 const chatMessages = [];

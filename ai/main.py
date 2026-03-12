@@ -9,30 +9,30 @@ app = FastAPI()
 
 model = YOLO('best.pt') 
 
-# สร้างช่องทาง (Endpoint) รับรูปภาพตามโจทย์
+# end point for image upload and prediction
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
-    # 1. โหลดรูปภาพเข้า RAM
+    # file read
     contents = await file.read()
     image = Image.open(io.BytesIO(contents)).convert("RGB")
     img_array = np.array(image)
     
-    # 2. รันโมเดล YOLO
+   
     results = model(img_array)
     
-    # 3. สกัดข้อมูลพิกัด (Bounding Box) และชื่อวัตถุ
+    # Bounding Box
     predictions = []
     for r in results:
         for box in r.boxes:
-            b = box.xyxy[0].tolist() # พิกัด Bounding Box
+            b = box.xyxy[0].tolist() 
             conf = float(box.conf)
             cls_id = int(box.cls)
             name = model.names[cls_id]
             
-            # ลอจิกจำแนกพิษ (สมมติรายชื่องูมีพิษ คุณเพชรสามารถมาเพิ่มชื่อทีหลังได้)
+            # logic to determine if the snake is venomous based on its name
             is_venomous = True if name in ['cobra', 'viper', 'krait'] else False
             
-            # คืนค่าเป็น JSON
+            # return to json format
             predictions.append({
                 "box": b,
                 "label": name,

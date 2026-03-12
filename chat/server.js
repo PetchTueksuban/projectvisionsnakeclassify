@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-// ─── CONFIG ───────────────────────────────────────────────────────────────────
+// CONFIG
 const GEMINI_API_KEY  = process.env.GEMINI_API_KEY  || '';
 const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK || '';
 const PORT            = process.env.PORT            || 3001;
@@ -39,7 +39,7 @@ const SYSTEM_PROMPT = `คุณคือผู้เชี่ยวชาญด
 - ตอบสั้น 2-4 ประโยค
 - ใส่ emoji ให้เหมาะสม`;
 
-// ─── GEMINI API ───────────────────────────────────────────────────────────────
+// GEMINI API
 async function askGemini(message) {
   const res = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
@@ -62,7 +62,7 @@ async function askGemini(message) {
   return data.candidates?.[0]?.content?.parts?.[0]?.text || 'ขออภัย ไม่สามารถตอบได้';
 }
 
-// ─── DISCORD LOG ──────────────────────────────────────────────────────────────
+//DISCORD LOG
 async function logToDiscord(question, answer) {
   if (!DISCORD_WEBHOOK) return;
   await fetch(DISCORD_WEBHOOK, {
@@ -82,7 +82,7 @@ async function logToDiscord(question, answer) {
   }).catch(e => console.error('[discord]', e.message));
 }
 
-// ─── API ──────────────────────────────────────────────────────────────────────
+//API
 app.post('/chat', async (req, res) => {
   const { message } = req.body;
   if (!message) return res.status(400).json({ error: 'message required' });
