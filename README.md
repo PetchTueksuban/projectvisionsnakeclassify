@@ -1,6 +1,6 @@
 # JABNGU.AI — Snake Classification System
 
-> A containerized microservices architecture for real-time snake species detection using YOLOv8, built with Docker, Nginx, and FastAPI.
+> A containerized microservices architecture for real-time snake species detection using YOLOv11, built with Docker, Nginx, and FastAPI.
 
 ---
 
